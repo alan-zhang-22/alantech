@@ -1,213 +1,164 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/alantech/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/alantech/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/alantech/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/alantech/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/alantech/css/main.css">
-
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-
-<script class="next-config" data-name="main" type="application/json">{"hostname":"alan-zhang-22.github.io","root":"/alantech/","images":"/alantech/images","scheme":"Muse","darkmode":false,"version":"8.23.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/alantech/js/config.js" defer></script>
-
-    <meta name="description" content="This guide provides step-by-step instructions for installing BasicTeX using MacPorts on a Mac, setting up the environment to process LaTeX documents, and converting a Markdown file containing Mermaid">
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac | Alan Tech</title><meta name="author" content="Alan Zhang"><meta name="copyright" content="Alan Zhang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="This guide provides step-by-step instructions for installing BasicTeX using MacPorts on a Mac, setting up the environment to process LaTeX documents, and converting a Markdown file containing Mermaid">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac">
 <meta property="og:url" content="https://alan-zhang-22.github.io/alantech/2025/07/12/install-basictex-macports-and-convert-markdown-mermaid-to-pdf/index.html">
 <meta property="og:site_name" content="Alan Tech">
 <meta property="og:description" content="This guide provides step-by-step instructions for installing BasicTeX using MacPorts on a Mac, setting up the environment to process LaTeX documents, and converting a Markdown file containing Mermaid">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alan-zhang-22.github.io/alantech/img/butterfly-icon.png">
 <meta property="article:published_time" content="2025-07-12T10:00:00.000Z">
-<meta property="article:modified_time" content="2025-07-12T07:14:36.993Z">
+<meta property="article:modified_time" content="2025-07-12T07:46:30.482Z">
 <meta property="article:author" content="Alan Zhang">
 <meta name="twitter:card" content="summary">
-
-
-<link rel="canonical" href="https://alan-zhang-22.github.io/alantech/2025/07/12/install-basictex-macports-and-convert-markdown-mermaid-to-pdf/">
-
-
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://alan-zhang-22.github.io/alantech/2025/07/12/install-basictex-macports-and-convert-markdown-mermaid-to-pdf/","path":"2025/07/12/install-basictex-macports-and-convert-markdown-mermaid-to-pdf/","title":"Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac"}</script>
-
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac | Alan Tech</title>
-  
-
-
-
-
-
-
-
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
-<script src="/alantech/js/utils.js" defer></script><script src="/alantech/js/motion.js" defer></script><script src="/alantech/js/sidebar.js" defer></script><script src="/alantech/js/next-boot.js" defer></script>
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-
-  <noscript>
-    <link rel="stylesheet" href="/alantech/css/noscript.css">
-  </noscript>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
-
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar" role="button">
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/alantech/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <p class="site-title">Alan Tech</p>
-      <i class="logo-line"></i>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="Search" role="button">
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-</header>
-        
-  
-  <aside class="sidebar">
-
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Prerequisites"><span class="nav-number">1.</span> <span class="nav-text">Prerequisites</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Installing-BasicTeX-via-MacPorts"><span class="nav-number">2.</span> <span class="nav-text">Installing BasicTeX via MacPorts</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Steps"><span class="nav-number">2.1.</span> <span class="nav-text">Steps</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Converting-Markdown-with-Mermaid-Diagrams-to-PDF"><span class="nav-number">3.</span> <span class="nav-text">Converting Markdown with Mermaid Diagrams to PDF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-by-Step-Process"><span class="nav-number">3.1.</span> <span class="nav-text">Step-by-Step Process</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Prepare-the-Markdown-File"><span class="nav-number">3.2.</span> <span class="nav-text">1. Prepare the Markdown File</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Preprocess-Mermaid-Diagrams"><span class="nav-number">3.3.</span> <span class="nav-text">2. Preprocess Mermaid Diagrams</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Convert-to-PDF"><span class="nav-number">3.4.</span> <span class="nav-text">3. Convert to PDF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Verify-Chinese-Font-Support"><span class="nav-number">3.5.</span> <span class="nav-text">4. Verify Chinese Font Support</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Troubleshooting"><span class="nav-number">4.</span> <span class="nav-text">Troubleshooting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mermaid-Diagram-Not-Rendering"><span class="nav-number">4.1.</span> <span class="nav-text">Mermaid Diagram Not Rendering</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PDF-Issues"><span class="nav-number">4.2.</span> <span class="nav-text">PDF Issues</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Permissions-or-PATH-Issues"><span class="nav-number">4.3.</span> <span class="nav-text">Permissions or PATH Issues</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Missing-LaTeX-Packages"><span class="nav-number">4.4.</span> <span class="nav-text">Missing LaTeX Packages</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Alternative-Manual-Diagram-Rendering"><span class="nav-number">5.</span> <span class="nav-text">Alternative: Manual Diagram Rendering</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Notes"><span class="nav-number">6.</span> <span class="nav-text">Notes</span></a></li></ol></div>
-        </div>
-        <!--/noindex-->
-
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Alan Zhang</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        <a href="/alantech/archives/">
-          <span class="site-state-item-count">2</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">categories</span>
-      </div>
-  </nav>
-</div>
-
-        </div>
-      </div>
-    </div>
-
-    
-  </aside>
-
-
-    </div>
-
-    <div class="main-inner post posts-expand">
-
-
-  
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://alan-zhang-22.github.io/alantech/2025/07/12/install-basictex-macports-and-convert-markdown-mermaid-to-pdf/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/alantech/images/avatar.gif">
-      <meta itemprop="name" content="Alan Zhang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Alan Tech">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac | Alan Tech">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
+<meta name="twitter:image" content="https://alan-zhang-22.github.io/alantech/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac",
+  "url": "https://alan-zhang-22.github.io/alantech/2025/07/12/install-basictex-macports-and-convert-markdown-mermaid-to-pdf/",
+  "image": "https://alan-zhang-22.github.io/alantech/img/butterfly-icon.png",
+  "datePublished": "2025-07-12T10:00:00.000Z",
+  "dateModified": "2025-07-12T07:46:30.482Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Alan Zhang",
+      "url": "https://alan-zhang-22.github.io/alantech"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/alantech/img/favicon.png"><link rel="canonical" href="https://alan-zhang-22.github.io/alantech/2025/07/12/install-basictex-macports-and-convert-markdown-mermaid-to-pdf/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/alantech/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
       
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
 
-      <time title="Created: 2025-07-12 10:00:00 / Modified: 07:14:36" itemprop="dateCreated datePublished" datetime="2025-07-12T10:00:00+00:00">2025-07-12</time>
-    </span>
-
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
   
-</div>
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
 
-        </div>
-      </header>
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
 
+      const theme = saveToLocal.get('theme')
     
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
     
-    
-    <div class="post-body" itemprop="articleBody"><p>This guide provides step-by-step instructions for installing BasicTeX using MacPorts on a Mac, setting up the environment to process LaTeX documents, and converting a Markdown file containing Mermaid diagrams into a PDF with diagrams rendered as images. The process uses MacPorts to install BasicTeX, <code>mmdc</code> (Mermaid CLI) to preprocess Mermaid diagrams into images, and Pandoc with <code>xelatex</code> to generate the PDF. It includes setup, execution, and troubleshooting steps to ensure a smooth workflow.</p>
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/alantech/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/alantech/"><span class="site-name">Alan Tech</span></a><a class="nav-page-title" href="/alantech/"><span class="site-name">Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-07-12T10:00:00.000Z" title="Created 2025-07-12 10:00:00">2025-07-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-07-12T07:46:30.482Z" title="Updated 2025-07-12 07:46:30">2025-07-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>This guide provides step-by-step instructions for installing BasicTeX using MacPorts on a Mac, setting up the environment to process LaTeX documents, and converting a Markdown file containing Mermaid diagrams into a PDF with diagrams rendered as images. The process uses MacPorts to install BasicTeX, <code>mmdc</code> (Mermaid CLI) to preprocess Mermaid diagrams into images, and Pandoc with <code>xelatex</code> to generate the PDF. It includes setup, execution, and troubleshooting steps to ensure a smooth workflow.</p>
 <h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><p>Before proceeding, ensure you have the following tools and configurations:</p>
 <ol>
 <li><p><strong>MacPorts</strong>: A package manager for installing open-source software on macOS.</p>
@@ -348,70 +299,79 @@ If missing, reinstall:<figure class="highlight bash"><table><tr><td class="gutte
 <li><strong>Resources</strong>: Use the <a target="_blank" rel="noopener" href="https://mermaid.live/">Mermaid Live Editor</a> to test diagrams and <a target="_blank" rel="noopener" href="https://tex.stackexchange.com/">TeX Stack Exchange</a> for LaTeX issues.</li>
 </ul>
 <p>This guide ensures you can install BasicTeX via MacPorts and convert Markdown files with Mermaid diagrams to PDFs with diagrams rendered as images. If issues arise, share error outputs and tool versions (<code>port version</code>, <code>mmdc --version</code>, <code>pandoc --version</code>, <code>xelatex --version</code>) for further assistance.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://alan-zhang-22.github.io/alantech">Alan Zhang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://alan-zhang-22.github.io/alantech/2025/07/12/install-basictex-macports-and-convert-markdown-mermaid-to-pdf/">https://alan-zhang-22.github.io/alantech/2025/07/12/install-basictex-macports-and-convert-markdown-mermaid-to-pdf/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/alantech/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/alantech/2025/07/12/Emacs_C++_IDE_Setup_Eglot/" title="Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition)</div></div><div class="info-2"><div class="info-item-1">IntroductionPurpose and VisionThis guide aims to provide a detailed and precise roadmap for transforming Emacs, a powerful text editor, into a fully-featured C++ Integrated Development Environment (IDE) on macOS that rivals or surpasses mainstream commercial products. The focus will be on CMake-based projects, using MacPorts as the sole system-level package manager. The ultimate goal is to create a highly integrated, responsive, and fully customizable development environment tailored to the d...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/alantech/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/alantech/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Alan Zhang</div><div class="author-info-description"></div><div class="site-data"><a href="/alantech/archives/"><div class="headline">Articles</div><div class="length-num">2</div></a><a href="/alantech/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/alantech/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Prerequisites"><span class="toc-number">1.</span> <span class="toc-text">Prerequisites</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Installing-BasicTeX-via-MacPorts"><span class="toc-number">2.</span> <span class="toc-text">Installing BasicTeX via MacPorts</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Steps"><span class="toc-number">2.1.</span> <span class="toc-text">Steps</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Converting-Markdown-with-Mermaid-Diagrams-to-PDF"><span class="toc-number">3.</span> <span class="toc-text">Converting Markdown with Mermaid Diagrams to PDF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-by-Step-Process"><span class="toc-number">3.1.</span> <span class="toc-text">Step-by-Step Process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Prepare-the-Markdown-File"><span class="toc-number">3.2.</span> <span class="toc-text">1. Prepare the Markdown File</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Preprocess-Mermaid-Diagrams"><span class="toc-number">3.3.</span> <span class="toc-text">2. Preprocess Mermaid Diagrams</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Convert-to-PDF"><span class="toc-number">3.4.</span> <span class="toc-text">3. Convert to PDF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Verify-Chinese-Font-Support"><span class="toc-number">3.5.</span> <span class="toc-text">4. Verify Chinese Font Support</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Troubleshooting"><span class="toc-number">4.</span> <span class="toc-text">Troubleshooting</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mermaid-Diagram-Not-Rendering"><span class="toc-number">4.1.</span> <span class="toc-text">Mermaid Diagram Not Rendering</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PDF-Issues"><span class="toc-number">4.2.</span> <span class="toc-text">PDF Issues</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Permissions-or-PATH-Issues"><span class="toc-number">4.3.</span> <span class="toc-text">Permissions or PATH Issues</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Missing-LaTeX-Packages"><span class="toc-number">4.4.</span> <span class="toc-text">Missing LaTeX Packages</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Alternative-Manual-Diagram-Rendering"><span class="toc-number">5.</span> <span class="toc-text">Alternative: Manual Diagram Rendering</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notes"><span class="toc-number">6.</span> <span class="toc-text">Notes</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/alantech/2025/07/12/install-basictex-macports-and-convert-markdown-mermaid-to-pdf/" title="Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac">Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac</a><time datetime="2025-07-12T10:00:00.000Z" title="Created 2025-07-12 10:00:00">2025-07-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/alantech/2025/07/12/Emacs_C++_IDE_Setup_Eglot/" title="Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition)">Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition)</a><time datetime="2025-07-12T07:46:30.481Z" title="Created 2025-07-12 07:46:30">2025-07-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By Alan Zhang</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/alantech/js/utils.js"></script><script src="/alantech/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
 
-    </div>
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
 
-    
-    
-    
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
 
-    <footer class="post-footer">
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
 
-        
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'alan-zhang-22/alantech',
+      'data-repo-id': 'R_kgDOPHi3mQ',
+      'data-category-id': 'DIC_kwDOPHi3mc4Cs10y',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
 
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/alantech/2025/07/12/Emacs_C++_IDE_Setup_Eglot/" rel="prev" title="Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition)">
-                  <i class="fa fa-angle-left"></i> Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition)
-                </a>
-            </div>
-            <div class="post-nav-item">
-            </div>
-          </div>
-    </footer>
-  </article>
-</div>
+    const scriptElement = createScriptElement(giscusConfig)
 
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
 
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
 
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
 
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
 
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
 
-</div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-
-  <div class="copyright">
-    &copy; 
-    <span itemprop="copyrightYear">2025</span>
-    <span class="with-love">
-      <i class="fa fa-heart"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">Alan Zhang</span>
-  </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
-
-    </div>
-  </footer>
-
-  
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-  <div class="sidebar-dimmer"></div>
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up fa-lg"></i>
-    <span>0%</span>
-  </div>
-
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
-
-</body>
-</html>
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
