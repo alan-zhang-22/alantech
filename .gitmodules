@@ -4,3 +4,7 @@
 [submodule "themes/next"]
 	path = themes/next
 	url = https://github.com/next-theme/hexo-theme-next.git
+[submodule "themes/butterfly"]
+	path = themes/butterfly
+	url = https://github.com/jerryc127/hexo-theme-butterfly.git
+	branch = master
