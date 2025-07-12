@@ -1,5 +1,6 @@
 # NexT Theme Comments Settings
 giscus:
+  enable: false
   repo: alan-zhang-22/alantech
   repo_id: R_kgDOPHi3mQ
   category: Blog Comments
@@ -8,9 +9,6 @@ giscus:
   reactions_enabled: 1
   emit_metadata: 0
   input_position: bottom
-  theme: preferred_color_scheme
+  theme: light
   lang: en
-
-comments:
-  enable: true
-  type: giscus
+  loading: lazy
