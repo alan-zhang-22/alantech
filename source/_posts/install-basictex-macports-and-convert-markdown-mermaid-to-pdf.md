@@ -1,3 +1,7 @@
+---
+title: "Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac"
+date: 2025-07-12 10:00:00
+---
 # Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac
 
 This guide provides step-by-step instructions for installing BasicTeX using MacPorts on a Mac, setting up the environment to process LaTeX documents, and converting a Markdown file containing Mermaid diagrams into a PDF with diagrams rendered as images. The process uses MacPorts to install BasicTeX, `mmdc` (Mermaid CLI) to preprocess Mermaid diagrams into images, and Pandoc with `xelatex` to generate the PDF. It includes setup, execution, and troubleshooting steps to ensure a smooth workflow.
