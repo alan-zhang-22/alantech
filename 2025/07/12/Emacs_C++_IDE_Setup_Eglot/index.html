@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition) - Alan Tech</title><link rel="manifest" href="/alantech/manifest.json"><meta name="application-name" content="Alan Tech"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Alan Tech"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="IntroductionPurpose and VisionThis guide aims to provide a detailed and precise roadmap for transforming Emacs, a powerful text editor, into a fully-featured C++ Integrated Development Environment (ID"><meta property="og:type" content="article"><meta property="og:title" content="Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition)"><meta property="og:url" content="https://alan-zhang-22.github.io/alantech/2025/07/12/Emacs_C++_IDE_Setup_Eglot/"><meta property="og:site_name" content="Alan Tech"><meta property="og:description" content="IntroductionPurpose and VisionThis guide aims to provide a detailed and precise roadmap for transforming Emacs, a powerful text editor, into a fully-featured C++ Integrated Development Environment (ID"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://alan-zhang-22.github.io/alantech/img/og_image.png"><meta property="article:published_time" content="2025-07-12T02:29:09.975Z"><meta property="article:modified_time" content="2025-07-12T02:29:09.975Z"><meta property="article:author" content="Alan Zhang"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://alan-zhang-22.github.io/alantech/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://alan-zhang-22.github.io/alantech/2025/07/12/Emacs_C++_IDE_Setup_Eglot/"},"headline":"Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition)","image":["https://alan-zhang-22.github.io/alantech/img/og_image.png"],"datePublished":"2025-07-12T02:29:09.975Z","dateModified":"2025-07-12T02:29:09.975Z","author":{"@type":"Person","name":"Alan Zhang"},"publisher":{"@type":"Organization","name":"Alan Tech","logo":{"@type":"ImageObject"}},"description":"IntroductionPurpose and VisionThis guide aims to provide a detailed and precise roadmap for transforming Emacs, a powerful text editor, into a fully-featured C++ Integrated Development Environment (ID"}</script><link rel="canonical" href="https://alan-zhang-22.github.io/alantech/2025/07/12/Emacs_C++_IDE_Setup_Eglot/"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/alantech/css/default.css"><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-1-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/alantech/">Alan Tech</a></div><div class="navbar-menu"><div class="navbar-end"></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-12"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2025-07-12T02:29:09.975Z" title="7/12/2025, 2:29:09 AM">2025-07-12</time></span><span class="level-item">Updated&nbsp;<time dateTime="2025-07-12T02:29:09.975Z" title="7/12/2025, 2:29:09 AM">2025-07-12</time></span><span class="level-item"><a class="link-muted" href="/alantech/categories/Dev-Environment/">Dev Environment</a></span></div></div><h1 class="title is-3 is-size-4-mobile">Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition)</h1><div class="content"><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><h2 id="Purpose-and-Vision"><a href="#Purpose-and-Vision" class="headerlink" title="Purpose and Vision"></a>Purpose and Vision</h2><p>This guide aims to provide a detailed and precise roadmap for transforming Emacs, a powerful text editor, into a fully-featured C++ Integrated Development Environment (IDE) on macOS that rivals or surpasses mainstream commercial products. The focus will be on CMake-based projects, using MacPorts as the sole system-level package manager. The ultimate goal is to create a highly integrated, responsive, and fully customizable development environment tailored to the developer’s needs.</p>
+<h2 id="The-Emacs-Philosophy-Why-Choose-Emacs"><a href="#The-Emacs-Philosophy-Why-Choose-Emacs" class="headerlink" title="The Emacs Philosophy: Why Choose Emacs?"></a>The Emacs Philosophy: Why Choose Emacs?</h2><p>The choice of Emacs as the foundation for a C++ IDE is not driven by nostalgia or tradition but by its unparalleled core strengths. Emacs is designed as “an extensible, self-documenting, real-time display editor.” This means nearly every aspect of it can be customized and extended using Emacs Lisp (Elisp). This extreme flexibility, combined with seamless integration with command-line tools and a vast ecosystem of thousands of high-quality packages built by a global developer community, makes it an ideal platform for crafting the ultimate development environment. Unlike rigid, feature-locked IDEs, Emacs allows developers to sculpt their environment precisely to their preferences.</p>
+<h2 id="Architecture-Overview"><a href="#Architecture-Overview" class="headerlink" title="Architecture Overview"></a>Architecture Overview</h2><p>The C++ IDE we will build is a sophisticated system composed of multiple interoperating components. Understanding these components and their roles is key to successful configuration. The architecture can be divided into three layers:</p>
+<ol>
+<li><strong>macOS System Toolchain</strong>: This is the foundation of our IDE, independent of Emacs. It includes the compiler (clang), language server (clangd), and debugger (lldb) provided by the LLVM project. These tools will be installed and managed via MacPorts to ensure version consistency and control.</li>
+<li><strong>Emacs Backend Integration Clients</strong>: This layer serves as the bridge between Emacs and the external toolchain. We will use <code>eglot</code> as the Language Server Protocol (LSP) client, known for its lightweight nature and tight integration with Emacs’s native tools. It communicates with <code>clangd</code> in real-time to provide code analysis, completion, and diagnostics. Additionally, <code>dap-mode</code> will serve as the Debug Adapter Protocol (DAP) client, interacting with <code>lldb</code>’s debug adapter to enable graphical debugging within Emacs.</li>
+<li><strong>Emacs Frontend User Experience (UX) Enhancements</strong>: This layer presents backend data to the user in an efficient, visually appealing, and intuitive manner. We will configure <code>company-mode</code> for smooth autocompletion popups and leverage Emacs’s built-in <code>flymake</code> for real-time error highlighting.</li>
+</ol>
+<p>This guide will build this system layer by layer, with clear explanations and explicit instructions for each step.</p>
+<h1 id="Part-1-Preparing-the-macOS-Toolchain-with-MacPorts"><a href="#Part-1-Preparing-the-macOS-Toolchain-with-MacPorts" class="headerlink" title="Part 1: Preparing the macOS Toolchain with MacPorts"></a>Part 1: Preparing the macOS Toolchain with MacPorts</h1><p>Before configuring Emacs, we must establish a robust and reliable C++ development toolchain on macOS. All subsequent Emacs configurations depend on the correct installation and setup of these external tools. Per the requirements, we will use MacPorts exclusively for this task.</p>
+<h2 id="1-1-LLVM-Toolchain-Compiler-and-Language-Server"><a href="#1-1-LLVM-Toolchain-Compiler-and-Language-Server" class="headerlink" title="1.1. LLVM Toolchain: Compiler and Language Server"></a>1.1. LLVM Toolchain: Compiler and Language Server</h2><p>The core of a modern C++ IDE lies in its “intellisense” capabilities, driven by a language server. For C++, <code>clangd</code> is one of the most advanced and widely used language servers. It is part of the LLVM project and provides highly accurate code analysis.</p>
+<p><strong>Principle</strong>: <code>clangd</code> parses your code in the background to enable real-time error checking, code completion, definition jumping, and reference finding. To ensure compatibility between <code>clangd</code> and your compiler, the best practice is to install a complete LLVM toolchain that includes <code>clang</code>, <code>clang++</code>, and <code>clangd</code>.</p>
+<p><strong>Instructions</strong>: We will install a recent, stable version of Clang. At the time of writing, <code>clang-18</code> is a good choice. Execute the following command in a macOS terminal:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> port install clang-18</span><br></pre></td></tr></table></figure>
+
+<p><strong>Explanation</strong>: This command downloads, compiles, and installs <code>clang-18</code> and its related tools via MacPorts. Upon completion, you will have the <code>clang</code> compiler, <code>clang++</code> C++ compiler, and, most importantly, the <code>clangd</code> language server.</p>
+<h2 id="1-2-LLDB-Debugger"><a href="#1-2-LLDB-Debugger" class="headerlink" title="1.2. LLDB Debugger"></a>1.2. LLDB Debugger</h2><p>Code debugging is an essential IDE feature. On macOS, LLDB is the standard system-level debugger. While Xcode’s Command Line Tools provide a version of LLDB, to maintain consistency across the toolchain (i.e., ensuring the compiler, language server, and debugger are from the same or compatible LLVM versions), we recommend installing LLDB via MacPorts.</p>
+<p><strong>Instructions</strong>: Execute the following command to install a version of LLDB compatible with the Clang version installed earlier. For example, <code>lldb-11</code> is a stable and widely used version, but you can choose the latest stable version available in MacPorts.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> port install lldb-11</span><br></pre></td></tr></table></figure>
+
+<p><strong>Explanation</strong>: This command installs the <code>lldb</code> debugger. Later, our Emacs debugging client, <code>dap-mode</code>, will control this <code>lldb</code> process through an intermediary layer (debug adapter) to enable breakpoint setting, stepping, and variable inspection.</p>
+<h2 id="1-3-Critical-Step-Activating-the-MacPorts-Toolchain"><a href="#1-3-Critical-Step-Activating-the-MacPorts-Toolchain" class="headerlink" title="1.3. Critical Step: Activating the MacPorts Toolchain"></a>1.3. Critical Step: Activating the MacPorts Toolchain</h2><p>This is a crucial but often overlooked step. Simply installing packages via MacPorts does not automatically make them the system’s default commands. macOS’s default PATH environment variable typically prioritizes Xcode-provided tools (located in <code>/usr/bin</code>). If Emacs or the terminal cannot locate the newly installed tools in <code>/opt/local/bin</code>, all subsequent LSP and debugging configurations will fail or behave incorrectly.</p>
+<p><strong>Problem Analysis</strong>:</p>
+<ol>
+<li>After running <code>sudo port install clang-18</code>, the relevant executables (e.g., <code>clang-mp-18</code>, <code>clangd-mp-18</code>) are installed in <code>/opt/local/bin</code>.</li>
+<li>Running <code>which clangd</code> in a new terminal may still return <code>/usr/bin/clangd</code>, indicating the older Xcode-provided version.</li>
+<li>Emacs inherits this incorrect PATH, causing <code>eglot</code> to launch the wrong <code>clangd</code>, which may fail to recognize modern C++ syntax or project configurations, leading to confusing errors.</li>
+<li>The solution is to use MacPorts’ <code>port select</code> mechanism, which creates versionless symbolic links in <code>/opt/local/bin</code> (e.g., <code>clang</code>, <code>clangd</code>) to ensure they are prioritized in the PATH.</li>
+</ol>
+<p><strong>Instructions</strong>:<br>We will use <code>port select</code> to set the system’s default <code>clang</code> to the newly installed <code>mp-clang-18</code> version.</p>
+<ol>
+<li>List available Clang versions:</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">port <span class="keyword">select</span> --list clang</span><br></pre></td></tr></table></figure>
+<p>You should see entries like <code>mp-clang-18</code> in the output.</p>
+<ol start="2">
+<li>Set the default Clang version:</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> port <span class="keyword">select</span> --<span class="built_in">set</span> clang mp-clang-18</span><br></pre></td></tr></table></figure>
+<p>This command creates symbolic links, such as <code>/opt/local/bin/clang</code> pointing to <code>clang-mp-18</code> and <code>/opt/local/bin/clangd</code> pointing to <code>clangd-mp-18</code>.</p>
+<ol start="3">
+<li>Repeat for LLDB (if supported by <code>port select</code>):<br>Check if LLDB has a selection group:</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">port <span class="keyword">select</span> --list lldb</span><br></pre></td></tr></table></figure>
+<p>If available, set the default LLDB version similarly.</p>
+<h2 id="1-4-Verification"><a href="#1-4-Verification" class="headerlink" title="1.4. Verification"></a>1.4. Verification</h2><p>Before proceeding with Emacs configuration, we must verify that the toolchain foundation is solid.</p>
+<p><strong>Instructions</strong>: Open a new terminal window (critical, as old windows may not reflect the updated PATH) and run:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">which</span> clangd</span><br><span class="line">clangd --version</span><br><span class="line"><span class="built_in">which</span> lldb</span><br><span class="line">lldb --version</span><br></pre></td></tr></table></figure>
+
+<p><strong>Expected Output</strong>: <code>which clangd</code> should return <code>/opt/local/bin/clangd</code>. <code>clangd --version</code> should show the installed version (e.g., 18.x.x). <code>lldb</code> commands should also point to <code>/opt/local/bin/</code>. If the output matches expectations, the system-level toolchain is ready.</p>
+<h1 id="Part-2-Building-a-Modular-Emacs-Configuration-Architecture"><a href="#Part-2-Building-a-Modular-Emacs-Configuration-Architecture" class="headerlink" title="Part 2: Building a Modular Emacs Configuration Architecture"></a>Part 2: Building a Modular Emacs Configuration Architecture</h1><p>A clear, maintainable Emacs configuration is key to long-term efficiency. We will adopt modern Emacs community best practices to create a powerful and manageable configuration structure.</p>
+<h2 id="2-1-The-Power-of-use-package"><a href="#2-1-The-Power-of-use-package" class="headerlink" title="2.1. The Power of use-package"></a>2.1. The Power of <code>use-package</code></h2><p>While Emacs configuration can be achieved with simple <code>require</code> and <code>setq</code> statements, the modern approach strongly recommends the <code>use-package</code> macro. It offers the following core advantages:</p>
+<ul>
+<li><strong>Organization</strong>: Groups all configurations related to a single package (variable settings, keybindings, hooks) into a single block, improving readability and maintainability.</li>
+<li><strong>Performance Optimization</strong>: Supports lazy-loading, meaning Emacs only loads a package’s code when needed (e.g., when a command is invoked or a specific mode is entered), significantly speeding up startup.</li>
+<li><strong>Automation</strong>: Automatically downloads and installs missing packages from repositories like MELPA, simplifying deployment.</li>
+</ul>
+<p>A simple <code>use-package</code> example:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(use-package magit</span><br><span class="line">  :ensure t  ; Ensure package is installed</span><br><span class="line">  :bind (&quot;C-x g&quot; . magit-status) ; Bind a key</span><br><span class="line">  :config</span><br><span class="line">  ;; Configuration executed after magit is loaded</span><br><span class="line">  (setq magit-display-buffer-function #&#x27;magit-display-buffer-same-window-except-diff-v1))</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-Configuration-Structure-init-el-and-init-cpp-el"><a href="#2-2-Configuration-Structure-init-el-and-init-cpp-el" class="headerlink" title="2.2. Configuration Structure: init.el and init-cpp.el"></a>2.2. Configuration Structure: <code>init.el</code> and <code>init-cpp.el</code></h2><p>Per your requirements, we will separate C++-related configurations into a dedicated <code>init-cpp.el</code> file, loaded by the main <code>init.el</code> configuration. This modular approach enhances clarity, maintainability, and shareability.</p>
+<p><strong>Loading Method</strong>: Emacs supports two primary methods for loading sub-configurations: <code>load-file</code> and <code>require</code>.</p>
+<ul>
+<li><code>load-file</code>: Directly executes the contents of a specified file. It is simple and ideal for personal configuration files, as you control the loading timing and content.</li>
+<li><code>require</code>: Checks if a “feature” has been provided (via the <code>provide</code> function in the loaded file). It prevents duplicate loading, useful for complex, multi-file Elisp libraries.</li>
+</ul>
+<p>For our scenario—loading a single C++ configuration module at startup—<code>load-file</code> is the best choice due to its simplicity and transparency.</p>
+<p><strong>Instructions</strong>:</p>
+<ol>
+<li>Create the main configuration file <code>~/.emacs.d/init.el</code>:<br>If it doesn’t exist, create it. This is the default file loaded by Emacs at startup. It will contain core settings, including package manager initialization and loading of the C++ module.</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">;; ~/.emacs.d/init.el</span><br><span class="line"></span><br><span class="line">;; --- Package Manager Setup ---</span><br><span class="line">;; Add MELPA package repository, the main source for up-to-date Emacs packages</span><br><span class="line">(require &#x27;package)</span><br><span class="line">(add-to-list &#x27;package-archives &#x27;(&quot;melpa&quot; . &quot;https://melpa.org/packages/&quot;))</span><br><span class="line">(package-initialize)</span><br><span class="line"></span><br><span class="line">;; --- Ensure use-package is Available ---</span><br><span class="line">;; Automatically install use-package if not present</span><br><span class="line">(unless (package-installed-p &#x27;use-package)</span><br><span class="line">  (package-refresh-contents)</span><br><span class="line">  (package-install &#x27;use-package))</span><br><span class="line">(require &#x27;use-package)</span><br><span class="line">(setq use-package-always-ensure t) ; Make use-package auto-install packages</span><br><span class="line"></span><br><span class="line">;; --- Load C++ Configuration Module ---</span><br><span class="line">;; Use load-file to load our C++-specific configuration</span><br><span class="line">;; expand-file-name ensures path correctness</span><br><span class="line">(load-file (expand-file-name &quot;init-cpp.el&quot; user-emacs-directory))</span><br><span class="line"></span><br><span class="line">;; --- Other general configurations can go here ---</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Create the C++ configuration file <code>~/.emacs.d/init-cpp.el</code>:<br>Create this empty file. All C++-related <code>use-package</code> blocks provided in later sections will be written to this file.</li>
+</ol>
+<h2 id="2-3-Core-Emacs-Packages-and-Their-IDE-Roles"><a href="#2-3-Core-Emacs-Packages-and-Their-IDE-Roles" class="headerlink" title="2.3. Core Emacs Packages and Their IDE Roles"></a>2.3. Core Emacs Packages and Their IDE Roles</h2><p>Before diving into specific configuration code, the following table provides an overview of the IDE ecosystem we will build, clarifying each core package’s role to help you understand how they work together.</p>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Role in IDE</th>
+<th>Category</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>eglot</td>
+<td>Core LSP client. Manages communication with <code>clangd</code> for code intelligence.</td>
+<td>Backend Integration</td>
+</tr>
+<tr>
+<td>company</td>
+<td>General autocompletion framework (UI) for displaying <code>eglot</code> completion suggestions.</td>
+<td>User Interface</td>
+</tr>
+<tr>
+<td>flymake</td>
+<td>Emacs’s built-in real-time syntax checking framework, driven by <code>eglot</code> for diagnostics.</td>
+<td>User Interface</td>
+</tr>
+<tr>
+<td>projectile</td>
+<td>Project management tool for project-level operations and recognition.</td>
+<td>Project Management</td>
+</tr>
+<tr>
+<td>treemacs</td>
+<td>Tree-based file and project browser, providing a sidebar view.</td>
+<td>User Interface</td>
+</tr>
+<tr>
+<td>treemacs-projectile</td>
+<td>Integration package for <code>treemacs</code> and <code>projectile</code>.</td>
+<td>UI Enhancement</td>
+</tr>
+<tr>
+<td>dap-mode</td>
+<td>Core DAP client. Manages communication with the debug adapter.</td>
+<td>Backend Integration</td>
+</tr>
+<tr>
+<td>dap-gdb-lldb</td>
+<td>Bridges <code>dap-mode</code> with the <code>lldb</code> debug adapter.</td>
+<td>Debugging</td>
+</tr>
+<tr>
+<td>modern-cpp-font-lock</td>
+<td>Enhances syntax highlighting for modern C++ (C++11 and later) to improve readability.</td>
+<td>Editing</td>
+</tr>
+</tbody></table>
+<h1 id="Part-3-Enabling-Intelligent-Code-Editing-with-Eglot"><a href="#Part-3-Enabling-Intelligent-Code-Editing-with-Eglot" class="headerlink" title="Part 3: Enabling Intelligent Code Editing with Eglot"></a>Part 3: Enabling Intelligent Code Editing with Eglot</h1><p>This section is the heart of our IDE, configuring Emacs to leverage the powerful features of the <code>clangd</code> language server for code completion, definition jumping, and real-time diagnostics.</p>
+<h2 id="3-1-LSP-Architecture-Emacs-and-clangd-Collaboration"><a href="#3-1-LSP-Architecture-Emacs-and-clangd-Collaboration" class="headerlink" title="3.1. LSP Architecture: Emacs and clangd Collaboration"></a>3.1. LSP Architecture: Emacs and <code>clangd</code> Collaboration</h2><p>The Language Server Protocol (LSP) is an open standard defining communication between an editor (client) and a language intelligence tool (server). This client-server model is the backbone of modern IDEs, offering:</p>
+<ul>
+<li><strong>Decoupling</strong>: Heavy tasks like code parsing are handled by the high-performance <code>clangd</code> server in a background process. Emacs acts as a lightweight client, sending requests (e.g., “Where is this symbol defined?”) and receiving responses, keeping Emacs responsive.</li>
+<li><strong>Reusability</strong>: Any LSP-compliant editor can use the same <code>clangd</code> server, fostering a robust ecosystem.</li>
+</ul>
+<p>In our setup, <code>eglot</code> is the LSP client in Emacs, responsible for launching <code>clangd</code> and exchanging JSON-RPC messages via standard input&#x2F;output. <code>eglot</code> is favored for its lightweight design and seamless integration with Emacs’s native tools like <code>xref</code> and <code>flymake</code>.</p>
+<h2 id="3-2-The-Critical-Hub-compile-commands-json"><a href="#3-2-The-Critical-Hub-compile-commands-json" class="headerlink" title="3.2. The Critical Hub: compile_commands.json"></a>3.2. The Critical Hub: <code>compile_commands.json</code></h2><p>The effectiveness of the LSP system hinges on the language server’s ability to understand your project. For a complex language like C++, a source file is not self-contained—its correct parsing depends on external factors like header search paths (<code>-I</code>), preprocessor macros (<code>-D</code>), and other compiler flags.</p>
+<p>The <code>compile_commands.json</code> file is a standardized solution to this problem. It is a JSON compilation database listing the exact compilation commands for each source file in the project. When <code>eglot</code> starts <code>clangd</code>, <code>clangd</code> automatically looks for this file in the project root. If found, it uses the correct context to parse your code, just like a compiler. Without this file, <code>clangd</code> resorts to guesswork, often leading to false errors (e.g., complaining that the standard library header <code>&lt;vector&gt;</code> cannot be found), rendering LSP functionality ineffective. Thus, ensuring your build system generates this file is an absolute prerequisite before configuring the editor.</p>
+<h2 id="3-3-Generating-compile-commands-json-with-CMake"><a href="#3-3-Generating-compile-commands-json-with-CMake" class="headerlink" title="3.3. Generating compile_commands.json with CMake"></a>3.3. Generating <code>compile_commands.json</code> with CMake</h2><p>Fortunately, since your project uses CMake, generating this file is straightforward. Modern CMake versions have built-in support for this feature.</p>
+<p><strong>Instructions</strong>: Add the following line to your project’s main <code>CMakeLists.txt</code> file:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(CMAKE_EXPORT_COMPILE_COMMANDS <span class="keyword">ON</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Explanation</strong>:</p>
+<ul>
+<li>Adding this line to <code>CMakeLists.txt</code> enables native LSP support for your project. Any developer using Emacs, VS Code, or another LSP-supporting editor will automatically generate <code>compile_commands.json</code> in the build directory when building the project.</li>
+<li>Alternatively, you can pass a command-line argument when invoking <code>cmake</code>: <code>cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON</code>. This is equally effective but requires remembering to include the flag each time. Adding it to <code>CMakeLists.txt</code> is more robust and permanent.</li>
+<li>This feature is well-supported for Makefile and Ninja generators, covering typical macOS use cases.</li>
+</ul>
+<h2 id="3-4-Configuring-the-eglot-Client"><a href="#3-4-Configuring-the-eglot-Client" class="headerlink" title="3.4. Configuring the eglot Client"></a>3.4. Configuring the <code>eglot</code> Client</h2><p>Now, we can configure <code>eglot</code> in the <code>init-cpp.el</code> file, using the verified direct hook method for reliability.</p>
+<p><strong>Instructions</strong>: Add the following code block to your <code>~/.emacs.d/init-cpp.el</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">;; Ensure eglot package is installed</span><br><span class="line">(use-package eglot :ensure t)</span><br><span class="line"></span><br><span class="line">;; Use the verified configuration to ensure eglot auto-starts</span><br><span class="line">(require &#x27;eglot)</span><br><span class="line">(add-hook &#x27;c-mode-hook &#x27;eglot-ensure)</span><br><span class="line">(add-hook &#x27;c++ Hawkins)</span><br><span class="line">(add-hook &#x27;c-or-c++-mode-hook &#x27;eglot-ensure)</span><br><span class="line"></span><br><span class="line">;; Ensure stability by explicitly specifying clangd for C/C++ modes</span><br><span class="line">(with-eval-after-load &#x27;eglot</span><br><span class="line">  (add-to-list &#x27;eglot-server-programs &#x27;((c++-mode c-mode) &quot;clangd&quot;)))</span><br></pre></td></tr></table></figure>
+
+<p><strong>Configuration Details</strong>:</p>
+<ul>
+<li><code>(use-package eglot :ensure t)</code>: Ensures the <code>eglot</code> package is downloaded and installed.</li>
+<li><code>(require &#39;eglot)</code> and <code>(add-hook...)</code>: The core configuration, verified as effective. It tells Emacs to run <code>eglot-ensure</code> automatically when opening a C or C++ file, starting <code>clangd</code> and establishing an LSP session.</li>
+<li><code>(with-eval-after-load &#39;eglot...)</code>: Enhances stability by ensuring that after <code>eglot</code> is loaded, it updates the server list to specify <code>clangd</code> for <code>c++-mode</code> and <code>c-mode</code>.</li>
+</ul>
+<h2 id="3-5-Seamless-Code-Completion-with-company-mode"><a href="#3-5-Seamless-Code-Completion-with-company-mode" class="headerlink" title="3.5. Seamless Code Completion with company-mode"></a>3.5. Seamless Code Completion with <code>company-mode</code></h2><p><code>eglot</code> retrieves completion data from <code>clangd</code>, but it needs a frontend (UI) framework to display suggestions as a popup. <code>company-mode</code> (COMPlete ANYthing) is the most popular and mature completion framework in Emacs, integrating seamlessly with <code>eglot</code> via Emacs’s standard <code>completion-at-point</code> mechanism.</p>
+<p><strong>Instructions</strong>: Add the following <code>use-package</code> configuration to <code>init-cpp.el</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(use-package company</span><br><span class="line">  :ensure t</span><br><span class="line">  :hook (prog-mode . company-mode)</span><br><span class="line">  :bind (:map company-active-map</span><br><span class="line">         (&quot;&lt;tab&gt;&quot; . company-complete-selection))</span><br><span class="line">  :custom</span><br><span class="line">  (company-minimum-prefix-length 1)</span><br><span class="line">  (company-idle-delay 0.1))</span><br></pre></td></tr></table></figure>
+
+<p><strong>Configuration Details</strong>:</p>
+<ul>
+<li><code>:hook (prog-mode . company-mode)</code>: Automatically enables <code>company-mode</code> in all programming modes (as <code>prog-mode</code> is their parent mode).</li>
+<li><code>company-backends</code>: <code>eglot</code> provides completions via the standard <code>completion-at-point-functions</code> hook, and <code>company-mode</code>’s default backend, <code>company-capf</code>, uses this hook automatically, so no manual backend configuration is needed.</li>
+<li><code>:bind</code>: Binds the Tab key to select a completion when options are available, mimicking modern IDE behavior.</li>
+<li><code>:custom</code>: Fine-tunes <code>company-mode</code> behavior. <code>company-minimum-prefix-length 1</code> starts completion after one character; <code>company-idle-delay 0.1</code> displays the completion popup 0.1 seconds after typing stops.</li>
+</ul>
+<h2 id="3-6-Effortless-Code-Navigation"><a href="#3-6-Effortless-Code-Navigation" class="headerlink" title="3.6. Effortless Code Navigation"></a>3.6. Effortless Code Navigation</h2><p><code>eglot</code> seamlessly integrates with Emacs’s built-in <code>xref</code> framework, enabling immediate use of standard navigation keybindings without additional configuration.</p>
+<p><strong>Core Navigation Commands</strong>:</p>
+<ul>
+<li><code>M-.</code> (Alt + .): Runs <code>xref-find-definitions</code> to jump to the definition of the symbol under the cursor (e.g., function, variable, or class), fulfilling your “function definition jump” requirement.</li>
+<li><code>M-?</code> (Alt + ?): Runs <code>xref-find-references</code> to list all references to the symbol in the project in a new window.</li>
+<li><code>M-,</code> (Alt + ,): Runs <code>xref-pop-marker-stack</code> to return to the position before the jump, enabling seamless code navigation.</li>
+</ul>
+<h1 id="Part-4-Crafting-an-Exceptional-User-Experience"><a href="#Part-4-Crafting-an-Exceptional-User-Experience" class="headerlink" title="Part 4: Crafting an Exceptional User Experience"></a>Part 4: Crafting an Exceptional User Experience</h1><p>A powerful IDE needs not only intelligent functionality but also an attractive, intuitive interface. This section adds optional but highly recommended packages to provide the visual feedback and interaction enhancements expected of a modern IDE.</p>
+<h2 id="4-1-Enhanced-Syntax-Highlighting-for-Modern-C"><a href="#4-1-Enhanced-Syntax-Highlighting-for-Modern-C" class="headerlink" title="4.1. Enhanced Syntax Highlighting for Modern C++"></a>4.1. Enhanced Syntax Highlighting for Modern C++</h2><p>Emacs’s built-in <code>c++-mode</code> provides decent syntax highlighting. However, with the evolution of C++ standards (C++11, 14, 17, 20, 23), new keywords (e.g., <code>constexpr</code>, <code>noexcept</code>, <code>concept</code>), attributes (e.g., <code>[[deprecated]]</code>, <code>[[nodiscard]]</code>), and syntactic constructs have been introduced. A dedicated package can provide more precise and richer color highlighting for these features, improving code readability.</p>
+<p><strong>Instructions</strong>: We recommend the <code>modern-cpp-font-lock</code> package. Add the following to <code>init-cpp.el</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(use-package modern-cpp-font-lock</span><br><span class="line">  :ensure t</span><br><span class="line">  :hook (c++-mode . modern-c++-font-lock-mode))</span><br></pre></td></tr></table></figure>
+
+<p><strong>Explanation</strong>:</p>
+<ul>
+<li>This configuration auto-installs <code>modern-cpp-font-lock</code>.</li>
+<li>The <code>:hook</code> ensures that <code>modern-c++-font-lock-mode</code>, a minor mode, activates automatically for C++ files.</li>
+<li>It enhances <code>c++-mode</code>’s base highlighting by coloring modern C++-specific syntax, making code more readable.</li>
+</ul>
+<h2 id="4-2-Real-Time-Diagnostics-with-flymake"><a href="#4-2-Real-Time-Diagnostics-with-flymake" class="headerlink" title="4.2. Real-Time Diagnostics with flymake"></a>4.2. Real-Time Diagnostics with <code>flymake</code></h2><p><code>eglot</code> integrates with Emacs’s built-in <code>flymake</code> framework for real-time code diagnostics (errors and warnings). When <code>eglot</code> receives diagnostics from <code>clangd</code>, it passes them to <code>flymake</code>, which highlights problematic code lines in the buffer.</p>
+<p><strong>Configuration and Usage</strong>:</p>
+<ul>
+<li><strong>No configuration needed</strong>: <code>eglot</code> handles <code>flymake</code> integration automatically; no additional packages or configuration are required.</li>
+<li><strong>View errors</strong>: Hover the mouse over code with red underlines or move the cursor to the line to see detailed error messages in the minibuffer.</li>
+<li><strong>Browse errors</strong>: Run <code>M-x flymake-show-buffer-diagnostics</code> to open a buffer listing all diagnostics for the current file, allowing you to jump to and fix issues.</li>
+</ul>
+<h2 id="4-3-Customizing-C-Indentation-Style-Handling-Namespaces"><a href="#4-3-Customizing-C-Indentation-Style-Handling-Namespaces" class="headerlink" title="4.3. Customizing C++ Indentation Style: Handling Namespaces"></a>4.3. Customizing C++ Indentation Style: Handling Namespaces</h2><p>By default, Emacs’s <code>c++-mode</code> indents code within namespace blocks. While this is desired in some coding standards, others prefer no extra indentation for namespace contents. We can easily adjust this behavior.</p>
+<p><strong>Instructions</strong>: Set the <code>innamespace</code> value in <code>c-offsets-alist</code> to control namespace indentation. A value of 0 disables indentation.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(use-package cc-mode</span><br><span class="line">  :ensure nil ;; cc-mode is built-in</span><br><span class="line">  :config</span><br><span class="line">  (defun my-cpp-indent-hook ()</span><br><span class="line">    &quot;Custom settings for C++ indentation.&quot;</span><br><span class="line">    ;; Do not indent code inside namespaces.</span><br><span class="line">    (c-set-offset &#x27;innamespace 0))</span><br><span class="line">  (add-hook &#x27;c++-mode-hook &#x27;my-cpp-indent-hook))</span><br></pre></td></tr></table></figure>
+
+<p><strong>Explanation</strong>:</p>
+<ul>
+<li>Uses <code>use-package</code> to organize configuration for the built-in <code>cc-mode</code>.</li>
+<li>Via <code>c++-mode-hook</code>, ensures <code>my-cpp-indent-hook</code> runs for every C++ file.</li>
+<li><code>c-set-offset &#39;innamespace 0</code> sets the namespace indentation offset to 0, achieving the desired effect.</li>
+</ul>
+<h2 id="4-4-Project-File-Browsing-with-treemacs"><a href="#4-4-Project-File-Browsing-with-treemacs" class="headerlink" title="4.4. Project File Browsing with treemacs"></a>4.4. Project File Browsing with <code>treemacs</code></h2><p>To provide a modern IDE-like project file tree view, we integrate <code>treemacs</code>, a powerful, modern-looking file browser that integrates seamlessly with <code>projectile</code>.</p>
+<p><strong>Instructions</strong>: First, configure <code>projectile</code> for project recognition, then set up <code>treemacs</code> and its <code>projectile</code> integration plugin, <code>treemacs-projectile</code>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">(use-package projectile</span><br><span class="line">  :ensure t</span><br><span class="line">  :config</span><br><span class="line">  (projectile-mode +1))</span><br><span class="line"></span><br><span class="line">(use-package treemacs</span><br><span class="line">  :ensure t</span><br><span class="line">  :defer t</span><br><span class="line">  :config</span><br><span class="line">  (treemacs-follow-mode t)</span><br><span class="line">  (treemacs-git-mode &#x27;extended)</span><br><span class="line">  :bind</span><br><span class="line">  (:map global-map</span><br><span class="line">    (&quot;M-0&quot;     . treemacs-select-window)</span><br><span class="line">    (&quot;C-x t 1&quot; . treemacs-delete-other-windows)</span><br><span class="line">    (&quot;C-x t t&quot; . treemacs)))</span><br><span class="line"></span><br><span class="line">(use-package treemacs-projectile</span><br><span class="line">  :after (treemacs projectile)</span><br><span class="line">  :ensure t)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Explanation</strong>:</p>
+<ul>
+<li><code>projectile-mode +1</code> enables <code>projectile</code> globally.</li>
+<li><code>treemacs</code> is deferred (<code>:defer t</code>) to improve startup speed.</li>
+<li><code>treemacs-follow-mode</code> auto-positions the <code>treemacs</code> window to the file being edited.</li>
+<li><code>treemacs-git-mode &#39;extended&#39;</code> displays different icons based on file Git status.</li>
+<li>Global keybindings like <code>C-x t t</code> quickly open&#x2F;close the <code>treemacs</code> window.</li>
+<li><code>treemacs-projectile</code> integrates <code>treemacs</code> with <code>projectile</code>. After installation, you can access <code>treemacs-projectile</code> via <code>projectile</code>’s command menu (<code>C-c p</code>) or run <code>M-x treemacs-projectile</code> to open the current project.</li>
+</ul>
+<h1 id="Part-5-Integrating-the-Debugger-with-dap-mode-and-LLDB"><a href="#Part-5-Integrating-the-Debugger-with-dap-mode-and-LLDB" class="headerlink" title="Part 5: Integrating the Debugger with dap-mode and LLDB"></a>Part 5: Integrating the Debugger with <code>dap-mode</code> and LLDB</h1><p>This is the final cornerstone of our IDE, integrating the powerful LLDB debugger directly into Emacs for a fully interactive debugging experience. This configuration is independent of the LSP client (<code>eglot</code> or <code>lsp-mode</code>) and works seamlessly with it.</p>
+<h2 id="5-1-DAP-Architecture-Parallels-with-LSP"><a href="#5-1-DAP-Architecture-Parallels-with-LSP" class="headerlink" title="5.1. DAP Architecture: Parallels with LSP"></a>5.1. DAP Architecture: Parallels with LSP</h2><p>Understanding DAP (Debug Adapter Protocol) integration involves recognizing its similarity to LSP. DAP is to debugging what LSP is to code analysis.</p>
+<p><strong>Architecture Comparison</strong>:</p>
+<ul>
+<li><strong>LSP Model</strong>: Emacs (editor) &lt;-&gt; <code>eglot</code> (client) &lt;-&gt; <code>clangd</code> (language server)</li>
+<li><strong>DAP Model</strong>: Emacs (editor) &lt;-&gt; <code>dap-mode</code> (client) &lt;-&gt; Debug Adapter &lt;-&gt; <code>lldb</code> (debugger)</li>
+</ul>
+<p><strong>Core Concepts</strong>:</p>
+<ol>
+<li>Like LSP, DAP is an open standard (championed by Microsoft) defining a universal protocol for communication between development tools and debuggers.</li>
+<li><code>dap-mode</code> is the DAP client in Emacs, sending debugging commands like “step next” or “set breakpoint.”</li>
+<li>The <strong>Debug Adapter</strong> is a critical intermediary process, translating DAP’s generic protocol commands into specific instructions that <code>lldb</code> understands.</li>
+<li>This adapter is typically provided by VS Code debugging extensions, and <code>dap-mode</code> leverages these high-quality adapters.</li>
+</ol>
+<p>Understanding this parallel architecture demystifies debugging configuration and explains the need for additional components.</p>
+<h2 id="5-2-Installing-the-lldb-dap-Debug-Adapter"><a href="#5-2-Installing-the-lldb-dap-Debug-Adapter" class="headerlink" title="5.2. Installing the lldb-dap Debug Adapter"></a>5.2. Installing the <code>lldb-dap</code> Debug Adapter</h2><p><code>dap-mode</code> requires a debug adapter to communicate with <code>lldb</code>. The <code>dap-gdb-lldb</code> Emacs package provides a convenient command to download and install a compatible adapter from the VS Code marketplace.</p>
+<p><strong>Instructions</strong>: In Emacs, run the following interactive command:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">M-x dap-gdb-lldb-setup</span><br></pre></td></tr></table></figure>
+
+<p><strong>Explanation</strong>:</p>
+<ul>
+<li>This command downloads a VS Code extension (e.g., <code>webfreak.code-debug</code>) containing GDB and LLDB debug adapters, extracting it to a local folder in Emacs’s configuration directory.</li>
+<li><code>dap-mode</code> then locates and uses this adapter.</li>
+<li>Note: The adapter’s name may evolve (e.g., from <code>lldb-vscode</code> to <code>lldb-dap</code>), but <code>dap-gdb-lldb-setup</code> typically handles these details. If issues arise, manually set the <code>dap-lldb-debug-program</code> variable to point to the correct adapter executable path.</li>
+</ul>
+<h2 id="5-3-Configuring-dap-mode"><a href="#5-3-Configuring-dap-mode" class="headerlink" title="5.3. Configuring dap-mode"></a>5.3. Configuring <code>dap-mode</code></h2><p>Add the <code>dap-mode</code> configuration to <code>init-cpp.el</code>.</p>
+<p><strong>Instructions</strong>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(use-package dap-mode</span><br><span class="line">  :ensure t</span><br><span class="line">  :config</span><br><span class="line">  ;; Required to enable LLDB support</span><br><span class="line">  (require &#x27;dap-gdb-lldb)</span><br><span class="line">  ;; Enable dap-mode UI components (locals, call stack, etc.)</span><br><span class="line">  (dap-ui-mode 1)</span><br><span class="line">  ;; Show variable values on hover</span><br><span class="line">  (dap-tooltip-mode 1)</span><br><span class="line">  ;; (Optional) Auto-show debug control panel (hydra) when program pauses</span><br><span class="line">  (add-hook &#x27;dap-stopped-hook</span><br><span class="line">            (lambda (arg) (call-interactively #&#x27;dap-hydra)))</span><br></pre></td></tr></table></figure>
+
+<p><strong>Configuration Details</strong>:</p>
+<ul>
+<li><code>(require &#39;dap-gdb-lldb)</code>: Essential for loading LLDB-specific configuration and templates.</li>
+<li><code>(dap-ui-mode 1)</code> and <code>(dap-tooltip-mode 1)</code>: Enable <code>dap-mode</code>’s graphical UI, automatically splitting the window to show call stack, locals, and watch expressions when debugging starts.</li>
+<li><code>dap-stopped-hook</code>: Adds a hook to pop up the <code>dap-hydra</code> control panel when the program pauses, allowing single-key commands (e.g., <code>n</code> for next, <code>i</code> for step-in) to control debugging.</li>
+</ul>
+<h2 id="5-4-Defining-Reusable-Debug-Launch-Templates"><a href="#5-4-Defining-Reusable-Debug-Launch-Templates" class="headerlink" title="5.4. Defining Reusable Debug Launch Templates"></a>5.4. Defining Reusable Debug Launch Templates</h2><p>To start a debug session, <code>dap-mode</code> needs the executable to debug, the working directory, and command-line arguments. Manually entering this information each time is tedious. The solution is a reusable “launch template.”</p>
+<p><strong>Key Insight</strong>: <code>dap-mode</code>’s launch templates use flexible variable substitution syntax (e.g., <code>$&#123;workspaceFolder&#125;</code>) borrowed from VS Code’s variable reference specification, not Elisp. Understanding this unlocks powerful, project-agnostic debugging configurations.</p>
+<p><strong>Instructions</strong>: Register a template named “C++ (LLDB) Launch” in <code>init-cpp.el</code> using <code>dap-register-debug-template</code>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(dap-register-debug-template</span><br><span class="line"> &quot;C++ (LLDB) Launch&quot;</span><br><span class="line"> (list :type &quot;lldb-vscode&quot;      ; Must match the debug adapter</span><br><span class="line">       :request &quot;launch&quot;         ; &quot;launch&quot; starts a new process</span><br><span class="line">       :name &quot;C++ (LLDB) Launch&quot; ; Name shown in selection list</span><br><span class="line">       ;; Key part: Use variables to dynamically determine executable path</span><br><span class="line">       ;; Assumes executable shares source file’s name (without extension)</span><br><span class="line">       ;; and is in the project root’s &quot;build/debug/&quot; subdirectory</span><br><span class="line">       :program &quot;$&#123;workspaceFolder&#125;/build/debug/$&#123;fileBasenameNoExtension&#125;&quot;</span><br><span class="line">       :cwd &quot;$&#123;workspaceFolder&#125;&quot; ; Set working directory to project root</span><br><span class="line">       :args                     ; Command-line arguments for the program</span><br><span class="line">       :stopOnEntry nil))        ; Whether to pause at program entry</span><br></pre></td></tr></table></figure>
+
+<p><strong>Template Details</strong>:</p>
+<ul>
+<li><code>:type &quot;lldb-vscode&quot;</code>: Specifies the debug adapter type, matching <code>dap-gdb-lldb</code>’s registered type. It may be called <code>lldb-dap</code>, but <code>dap-gdb-lldb</code> handles compatibility.</li>
+<li><code>:request &quot;launch&quot;</code>: Indicates launching a new process. “attach” is an alternative for attaching to running processes.</li>
+<li><code>:program</code>: The executable’s path, using VS Code-style variables:<ul>
+<li><code>$&#123;workspaceFolder&#125;</code>: The project root (typically the Git repository root).</li>
+<li><code>$&#123;fileBasenameNoExtension&#125;</code>: The current source file’s base name without extension.</li>
+</ul>
+</li>
+<li><code>:cwd</code>: Sets the program’s working directory to <code>$&#123;workspaceFolder&#125;</code>.</li>
+<li>A full list of variables is in VS Code’s documentation, enabling flexible, portable debug configurations.</li>
+</ul>
+<h1 id="Part-6-Complete-Solution-and-Example-Workflow"><a href="#Part-6-Complete-Solution-and-Example-Workflow" class="headerlink" title="Part 6: Complete Solution and Example Workflow"></a>Part 6: Complete Solution and Example Workflow</h1><p>This section integrates all configurations and provides a practical workflow example demonstrating how our carefully crafted IDE works together.</p>
+<h2 id="6-1-Final-init-cpp-el-Configuration-File"><a href="#6-1-Final-init-cpp-el-Configuration-File" class="headerlink" title="6.1. Final init-cpp.el Configuration File"></a>6.1. Final <code>init-cpp.el</code> Configuration File</h2><p>Below is the complete, annotated <code>init-cpp.el</code> file, combining all <code>use-package</code> blocks from previous sections—a ready-to-use final product.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">;;; init-cpp.el --- Emacs C++ IDE Configuration (Eglot) -*- lexical-binding: t; -*-</span><br><span class="line"></span><br><span class="line">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span><br><span class="line">;;; 1. Intelligent Code Analysis and Navigation (Eglot)</span><br><span class="line">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span><br><span class="line"></span><br><span class="line">;; Ensure eglot package is installed</span><br><span class="line">(use-package eglot :ensure t)</span><br><span class="line"></span><br><span class="line">;; Use the verified configuration to ensure eglot auto-starts</span><br><span class="line">(require &#x27;eglot)</span><br><span class="line">(add-hook &#x27;c-mode-hook &#x27;eglot-ensure)</span><br><span class="line">(add-hook &#x27;c++-mode-hook &#x27;eglot-ensure)</span><br><span class="line">(add-hook &#x27;c-or-c++-mode-hook &#x27;eglot-ensure)</span><br><span class="line"></span><br><span class="line">;; Ensure stability by explicitly specifying clangd for C/C++ modes</span><br><span class="line">(with-eval-after-load &#x27;eglot</span><br><span class="line">  (add-to-list &#x27;eglot-server-programs &#x27;((c++-mode c-mode) &quot;clangd&quot;)))</span><br><span class="line"></span><br><span class="line">(use-package company</span><br><span class="line">  :ensure t</span><br><span class="line">  :hook (prog-mode . company-mode)</span><br><span class="line">  :bind (:map company-active-map</span><br><span class="line">         (&quot;&lt;tab&gt;&quot; . company-complete-selection))</span><br><span class="line">  :custom</span><br><span class="line">  (company-minimum-prefix-length 1)</span><br><span class="line">  (company-idle-delay 0.1))</span><br><span class="line"></span><br><span class="line">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span><br><span class="line">;;; 2. User Experience Enhancements (UI &amp; Highlighting)</span><br><span class="line">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span><br><span class="line"></span><br><span class="line">(use-package modern-cpp-font-lock</span><br><span class="line">  :ensure t</span><br><span class="line">  :hook (c++-mode . modern-c++-font-lock-mode))</span><br><span class="line"></span><br><span class="line">(use-package cc-mode</span><br><span class="line">  :ensure nil ;; cc-mode is built-in</span><br><span class="line">  :config</span><br><span class="line">  (defun my-cpp-indent-hook ()</span><br><span class="line">    &quot;Custom settings for C++ indentation.&quot;</span><br><span class="line">    ;; Do not indent code inside namespaces.</span><br><span class="line">    (c-set-offset &#x27;innamespace 0))</span><br><span class="line">  (add-hook &#x27;c++-mode-hook &#x27;my-cpp-indent-hook))</span><br><span class="line"></span><br><span class="line">(use-package projectile</span><br><span class="line">  :ensure t</span><br><span class="line">  :config</span><br><span class="line">  (projectile-mode +1))</span><br><span class="line"></span><br><span class="line">(use-package treemacs</span><br><span class="line">  :ensure t</span><br><span class="line">  :defer t</span><br><span class="line">  :config</span><br><span class="line">  (treemacs-follow-mode t)</span><br><span class="line">  (treemacs-git-mode &#x27;extended)</span><br><span class="line">  :bind</span><br><span class="line">  (:map global-map</span><br><span class="line">    (&quot;M-0&quot;     . treemacs-select-window)</span><br><span class="line">    (&quot;C-x t 1&quot; . treemacs-delete-other-windows)</span><br><span class="line">    (&quot;C-x t t&quot; . treemacs)))</span><br><span class="line"></span><br><span class="line">(use-package treemacs-projectile</span><br><span class="line">  :after (treemacs projectile)</span><br><span class="line">  :ensure t)</span><br><span class="line"></span><br><span class="line">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span><br><span class="line">;;; 3. Integrated Debugging (DAP)</span><br><span class="line">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span><br><span class="line"></span><br><span class="line">(use-package dap-mode</span><br><span class="line">  :ensure t</span><br><span class="line">  :config</span><br><span class="line">  ;; Required to enable LLDB support</span><br><span class="line">  (require &#x27;dap-gdb-lldb)</span><br><span class="line">  ;; Enable dap-mode UI components (locals, call stack, etc.)</span><br><span class="line">  (dap-ui-mode 1)</span><br><span class="line">  ;; Show variable values on hover</span><br><span class="line">  (dap-tooltip-mode 1)</span><br><span class="line">  ;; (Optional) Auto-show debug control panel (hydra) when program pauses</span><br><span class="line">  (add-hook &#x27;dap-stopped-hook</span><br><span class="line">            (lambda (arg) (call-interactively #&#x27;dap-hydra)))</span><br><span class="line"></span><br><span class="line">  ;; Register a reusable C++ debug launch template</span><br><span class="line">  (dap-register-debug-template</span><br><span class="line">   &quot;C++ (LLDB) Launch&quot;</span><br><span class="line">   (list :type &quot;lldb-vscode&quot;</span><br><span class="line">         :request &quot;launch&quot;</span><br><span class="line">         :name &quot;C++ (LLDB) Launch&quot;</span><br><span class="line">         :program &quot;$&#123;workspaceFolder&#125;/build/debug/$&#123;fileBasenameNoExtension&#125;&quot;</span><br><span class="line">         :cwd &quot;$&#123;workspaceFolder&#125;&quot;</span><br><span class="line">         :args</span><br><span class="line">         :stopOnEntry nil)))</span><br><span class="line"></span><br><span class="line">(provide &#x27;init-cpp)</span><br><span class="line">;;; init-cpp.el ends here</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-2-Developer-Workflow-From-Project-to-Debugging"><a href="#6-2-Developer-Workflow-From-Project-to-Debugging" class="headerlink" title="6.2. Developer Workflow: From Project to Debugging"></a>6.2. Developer Workflow: From Project to Debugging</h2><p>This narrative example ties together all configured components, illustrating their synergy in a real development scenario.</p>
+<ol>
+<li><p><strong>Project Setup</strong>:</p>
+<ul>
+<li>In the terminal, navigate to your CMake project directory.</li>
+<li>Configure and generate build files, ensuring <code>compile_commands.json</code> is generated and debugging symbols (<code>-g</code>) are included.<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Create a build directory</span></span><br><span class="line">cmake -S. -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON</span><br></pre></td></tr></table></figure></li>
+<li>Build the project:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake --build build</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>Open the Project in Emacs</strong>:</p>
+<ul>
+<li>Start Emacs and open any <code>.cpp</code> source file in the project.</li>
+<li>Observe the minibuffer message: <code>[eglot] Connected! Server &#39;clangd&#39; now managing...</code>, indicating <code>eglot</code> has successfully connected to <code>clangd</code>.</li>
+<li>Press <code>C-x t t</code> to open a <code>treemacs</code> window on the left, displaying the project’s file tree.</li>
+</ul>
+</li>
+<li><p><strong>Code Navigation</strong>:</p>
+<ul>
+<li>Move the cursor to a function call and press <code>M-.</code> to jump to its definition.</li>
+<li>After reading, press <code>M-,</code> to return to the original position instantly.</li>
+</ul>
+</li>
+<li><p><strong>Code Completion</strong>:</p>
+<ul>
+<li>Type <code>.</code> or <code>-&gt;</code> after an object instance; <code>company-mode</code>’s completion popup appears, listing available members and functions provided by <code>clangd</code>. Use Tab or arrow keys to select and press Enter to complete.</li>
+</ul>
+</li>
+<li><p><strong>Real-Time Diagnostics</strong>:</p>
+<ul>
+<li>Introduce a syntax error (e.g., missing semicolon).</li>
+<li>Upon saving, a red wavy line appears under the offending code. Move the cursor to the line to see detailed error messages in the minibuffer.</li>
+</ul>
+</li>
+<li><p><strong>Start Debugging</strong>:</p>
+<ul>
+<li>Navigate to the desired pause point and run <code>M-x dap-breakpoint-toggle</code> to set a breakpoint, marked by a red dot in the gutter.</li>
+<li>Run <code>M-x dap-debug</code> to start a debug session.</li>
+<li>Select the “C++ (LLDB) Launch” template when prompted.</li>
+<li>Emacs splits the window to display the DAP debugging interface: source code on the top left, call stack and locals on the right, and debug output&#x2F;REPL below.</li>
+<li>If <code>dap-hydra</code> is configured, a control panel appears. Press <code>n</code> for next (<code>dap-next</code>), <code>i</code> for step-in (<code>dap-step-in</code>), or <code>c</code> to continue to the next breakpoint (<code>dap-continue</code>). Your C++ IDE is now fully operational.</li>
+</ul>
+</li>
+</ol>
+<h2 id="6-3-C-IDE-Core-Keybindings-Reference-Table"><a href="#6-3-C-IDE-Core-Keybindings-Reference-Table" class="headerlink" title="6.3. C++ IDE Core Keybindings Reference Table"></a>6.3. C++ IDE Core Keybindings Reference Table</h2><p>To help you get started quickly, the following table summarizes the most commonly used and critical keybindings in our configured IDE.</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Keybinding</th>
+<th>Emacs Command</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Code Navigation and Editing</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Jump to definition</td>
+<td>M-.</td>
+<td>xref-find-definitions</td>
+</tr>
+<tr>
+<td>Find references</td>
+<td>M-?</td>
+<td>xref-find-references</td>
+</tr>
+<tr>
+<td>Return from jump</td>
+<td>M-,</td>
+<td>xref-pop-marker-stack</td>
+</tr>
+<tr>
+<td>Rename symbol</td>
+<td>M-x eglot-rename</td>
+<td>eglot-rename</td>
+</tr>
+<tr>
+<td>Format buffer</td>
+<td>M-x eglot-format-buffer</td>
+<td>eglot-format-buffer</td>
+</tr>
+<tr>
+<td><strong>Project and File Browsing</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Open&#x2F;close Treemacs</td>
+<td>C-x t t</td>
+<td>treemacs</td>
+</tr>
+<tr>
+<td>Select Treemacs window</td>
+<td>M-0</td>
+<td>treemacs-select-window</td>
+</tr>
+<tr>
+<td>Open current project in Treemacs</td>
+<td>M-x treemacs-projectile</td>
+<td>treemacs-projectile</td>
+</tr>
+<tr>
+<td><strong>Debugging Controls</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Start debug session</td>
+<td>M-x dap-debug</td>
+<td>dap-debug</td>
+</tr>
+<tr>
+<td>Toggle breakpoint</td>
+<td>M-x dap-breakpoint-toggle</td>
+<td>dap-breakpoint-toggle</td>
+</tr>
+<tr>
+<td>Step over (next)</td>
+<td>M-x dap-next</td>
+<td>dap-next</td>
+</tr>
+<tr>
+<td>Step into function</td>
+<td>M-x dap-step-in</td>
+<td>dap-step-in</td>
+</tr>
+<tr>
+<td>Step out of function</td>
+<td>M-x dap-step-out</td>
+<td>dap-step-out</td>
+</tr>
+<tr>
+<td>Continue execution</td>
+<td>M-x dap-continue</td>
+<td>dap-continue</td>
+</tr>
+<tr>
+<td>Terminate debugging</td>
+<td>M-x dap-disconnect</td>
+<td>dap-disconnect</td>
+</tr>
+</tbody></table>
+<h2 id="6-4-Troubleshooting-and-Future-Exploration"><a href="#6-4-Troubleshooting-and-Future-Exploration" class="headerlink" title="6.4. Troubleshooting and Future Exploration"></a>6.4. Troubleshooting and Future Exploration</h2><p><strong>Common Issues</strong>:</p>
+<ul>
+<li><strong>Eglot not starting (no connection message in minibuffer)</strong>:<ol>
+<li>Check the <code>*Messages*</code> buffer for detailed logs.</li>
+<li>Ensure <code>compile_commands.json</code> exists in the project root (or a symlink points to it). <code>eglot</code> searches upward automatically.</li>
+<li>Run <code>which clangd</code> in a new terminal to confirm it points to <code>/opt/local/bin/clangd</code>.</li>
+</ol>
+</li>
+<li><strong>Debugging fails to start</strong>:<ol>
+<li>Verify the <code>:program</code> path in the debug template matches your project’s build structure.</li>
+<li>Ensure the project was compiled in Debug mode (<code>CMAKE_BUILD_TYPE=Debug</code>) with <code>-g</code> symbols.</li>
+<li>Rerun <code>M-x dap-gdb-lldb-setup</code> and check <code>*Messages*</code> for errors.</li>
+</ol>
+</li>
+</ul>
+<p><strong>Future Exploration</strong>:<br>You’ve built a powerful C++ IDE, but Emacs��s extensibility offers more possibilities. Consider:</p>
+<ul>
+<li><strong>magit</strong>: A renowned Git client for Emacs, offering a more efficient and intuitive Git experience than graphical or command-line tools.</li>
+<li><strong>Custom snippets</strong>: Use the <code>yasnippet</code> package to create templates for common code patterns (e.g., for loops, class definitions) triggered by simple keywords.</li>
+</ul>
+<p>By following this guide, you’ve transformed Emacs from a general-purpose text editor into a fully-featured, highly extensible C++ IDE tailored for macOS development. Welcome to the world of Emacs, where the only limit is your imagination.</p>
+<h1 id="Works-Cited"><a href="#Works-Cited" class="headerlink" title="Works Cited"></a>Works Cited</h1><ol>
+<li>Install clang-18 on macOS with MacPorts, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://ports.macports.org/port/clang-18/">https://ports.macports.org/port/clang-18/</a></li>
+<li>Install clang-11 on macOS with MacPorts, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://ports.macports.org/port/clang-11/">https://ports.macports.org/port/clang-11/</a></li>
+<li>Install lldb-11 on macOS with MacPorts, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://ports.macports.org/port/lldb-11/">https://ports.macports.org/port/lldb-11/</a></li>
+<li>emacs-lsp&#x2F;dap-mode: Emacs Debug Adapter Protocol - GitHub, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://github.com/emacs-lsp/dap-mode">https://github.com/emacs-lsp/dap-mode</a></li>
+<li>How to use clang-format from macports? - Stack Overflow, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/39069542/how-to-use-clang-format-from-macports">https://stackoverflow.com/questions/39069542/how-to-use-clang-format-from-macports</a></li>
+<li>How to modularize an emacs configuration? - Stack Overflow, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2079095/how-to-modularize-an-emacs-configuration">https://stackoverflow.com/questions/2079095/how-to-modularize-an-emacs-configuration</a></li>
+<li>Should I use “require” or “load” when writing my own configuration? [duplicate], accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://emacs.stackexchange.com/questions/47771/should-i-use-require-or-load-when-writing-my-own-configuration">https://emacs.stackexchange.com/questions/47771/should-i-use-require-or-load-when-writing-my-own-configuration</a></li>
+<li>Installation - LSP Mode - LSP support for Emacs, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://emacs-lsp.github.io/lsp-mode/page/installation/">https://emacs-lsp.github.io/lsp-mode/page/installation/</a></li>
+<li>CMAKE_EXPORT_COMPILE_COMMANDS — CMake 4.1.0-rc1 …, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/variable/CMAKE_EXPORT_COMPILE_COMMANDS.html">https://cmake.org/cmake/help/latest/variable/CMAKE_EXPORT_COMPILE_COMMANDS.html</a></li>
+<li>Configuring Emacs as a C&#x2F;C++ IDE - LSP Mode - LSP support for …, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/">https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/</a></li>
+<li>Help with basic setup of LSP with Clangd : r&#x2F;emacs - Reddit, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://www.reddit.com/r/emacs/comments/gc8f90/help_with_basic_setup_of_lsp_with_clangd/">https://www.reddit.com/r/emacs/comments/gc8f90/help_with_basic_setup_of_lsp_with_clangd/</a></li>
+<li>Generating a JSON compilation database | JetBrains Fleet, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/fleet/generating-a-json-compilation-database.html">https://www.jetbrains.com/help/fleet/generating-a-json-compilation-database.html</a></li>
+<li>Generate compile_commands.json · Issue #76 · colcon&#x2F;colcon-cmake - GitHub, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://github.com/colcon/colcon-cmake/issues/76">https://github.com/colcon/colcon-cmake/issues/76</a></li>
+<li>CMake not generating compile_commands.json - c++ - Stack Overflow, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/23960835/cmake-not-generating-compile-commands-json">https://stackoverflow.com/questions/23960835/cmake-not-generating-compile-commands-json</a></li>
+<li>Getting started - What is clangd? - LLVM, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://clangd.llvm.org/installation">https://clangd.llvm.org/installation</a></li>
+<li>Build Your Own IDE with lsp-mode - System Crafters, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://systemcrafters.net/emacs-from-scratch/build-your-own-ide-with-lsp-mode/">https://systemcrafters.net/emacs-from-scratch/build-your-own-ide-with-lsp-mode/</a></li>
+<li>Emacs from Source Part 4: IDE Features with lsp-mode, company-mode, and go-mode - YouTube, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=UFPD7icMoHY">https://www.youtube.com/watch?v=UFPD7icMoHY</a></li>
+<li>lsp-mode looks cool but how do you set it up????? : r&#x2F;emacs - Reddit, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://www.reddit.com/r/emacs/comments/i6ebl8/lspmode_looks_cool_but_how_do_you_set_it_up/">https://www.reddit.com/r/emacs/comments/i6ebl8/lspmode_looks_cool_but_how_do_you_set_it_up/</a></li>
+<li>Emacs C++ mode coding aids, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://web.physics.utah.edu/~detar/lessons/emacs/emacs/node7.html">https://web.physics.utah.edu/~detar/lessons/emacs/emacs/node7.html</a></li>
+<li>CC Mode Manual - GNU.org, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://www.gnu.org/software/emacs/manual/html_mono/ccmode.html">https://www.gnu.org/software/emacs/manual/html_mono/ccmode.html</a></li>
+<li>ludwigpacifici&#x2F;modern-cpp-font-lock: C++ font-lock for Emacs - GitHub, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://github.com/ludwigpacifici/modern-cpp-font-lock">https://github.com/ludwigpacifici/modern-cpp-font-lock</a></li>
+<li>C++ Programming in Emacs, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://olddeuteronomy.github.io/post/cpp-programming-in-emacs/">https://olddeuteronomy.github.io/post/cpp-programming-in-emacs/</a></li>
+<li>c++ - Emacs - override indentation - Stack Overflow, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2619853/emacs-override-indentation">https://stackoverflow.com/questions/2619853/emacs-override-indentation</a></li>
+<li>[question] how to disable indent in namespace c++-mode · Issue #3868 · syl20bnr&#x2F;spacemacs - GitHub, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://github.com/syl20bnr/spacemacs/issues/3868">https://github.com/syl20bnr/spacemacs/issues/3868</a></li>
+<li>Alexander-Miller&#x2F;treemacs - GitHub, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://github.com/Alexander-Miller/treemacs">https://github.com/Alexander-Miller/treemacs</a></li>
+<li>Treemacs Manual | Cyven Chaney, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://www.cybertheye.com/posts/treemacs-manual/">https://www.cybertheye.com/posts/treemacs-manual/</a></li>
+<li>Debian – Details of package elpa-treemacs-projectile in sid, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://packages.debian.org/sid/elpa-treemacs-projectile">https://packages.debian.org/sid/elpa-treemacs-projectile</a></li>
+<li>Confused about treemacs-projectile, want to keep them in sync always : r&#x2F;emacs - Reddit, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://www.reddit.com/r/emacs/comments/b50wmx/confused_about_treemacsprojectile_want_to_keep/">https://www.reddit.com/r/emacs/comments/b50wmx/confused_about_treemacsprojectile_want_to_keep/</a></li>
+<li>Configuration - DAP Mode, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://emacs-lsp.github.io/dap-mode/page/configuration/">https://emacs-lsp.github.io/dap-mode/page/configuration/</a></li>
+<li>Dap-Mode LLDB Debug Template for Rust : r&#x2F;emacs - Reddit, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://www.reddit.com/r/emacs/comments/1b1d9l6/dapmode_lldb_debug_template_for_rust/">https://www.reddit.com/r/emacs/comments/1b1d9l6/dapmode_lldb_debug_template_for_rust/</a></li>
+<li>dap-lldb: depends on deprecated vscode extension · Issue #799 · emacs-lsp&#x2F;dap-mode, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://github.com/emacs-lsp/dap-mode/issues/799">https://github.com/emacs-lsp/dap-mode/issues/799</a></li>
+</ol>
+</div><!--!--></article></div><!--!--><!--!--></div><!--!--><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/alantech/">Alan Tech</a><p class="is-size-7"><span>&copy; 2025 Alan Zhang</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/alantech/js/column.js"></script><!--!--><script data-pjax src="/alantech/js/main.js" defer></script><!--!--></body></html>
