@@ -97,7 +97,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
+theme: butterfly
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -105,4 +105,4 @@ deploy:
   type: ''
 
 # Point to the theme's configuration file
-theme_config: _config.next.yml
+theme_config: _config.butterfly.yml
