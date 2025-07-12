@@ -1,6 +1,7 @@
 ---
 title: "Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition)"
 categories: "Dev Environment"
+comments: true
 ---
 # Introduction
 
