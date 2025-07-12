@@ -1,35 +1,221 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition) - Alan Tech</title><link rel="manifest" href="/alantech/manifest.json"><meta name="application-name" content="Alan Tech"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Alan Tech"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="IntroductionPurpose and VisionThis guide aims to provide a detailed and precise roadmap for transforming Emacs, a powerful text editor, into a fully-featured C++ Integrated Development Environment (ID"><meta property="og:type" content="article"><meta property="og:title" content="Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition)"><meta property="og:url" content="https://alan-zhang-22.github.io/alantech/2025/07/12/Emacs_C++_IDE_Setup_Eglot/"><meta property="og:site_name" content="Alan Tech"><meta property="og:description" content="IntroductionPurpose and VisionThis guide aims to provide a detailed and precise roadmap for transforming Emacs, a powerful text editor, into a fully-featured C++ Integrated Development Environment (ID"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://alan-zhang-22.github.io/alantech/img/og_image.png"><meta property="article:published_time" content="2025-07-12T02:33:56.449Z"><meta property="article:modified_time" content="2025-07-12T02:33:56.449Z"><meta property="article:author" content="Alan Zhang"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://alan-zhang-22.github.io/alantech/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://alan-zhang-22.github.io/alantech/2025/07/12/Emacs_C++_IDE_Setup_Eglot/"},"headline":"Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition)","image":["https://alan-zhang-22.github.io/alantech/img/og_image.png"],"datePublished":"2025-07-12T02:33:56.449Z","dateModified":"2025-07-12T02:33:56.449Z","author":{"@type":"Person","name":"Alan Zhang"},"publisher":{"@type":"Organization","name":"Alan Tech","logo":{"@type":"ImageObject"}},"description":"IntroductionPurpose and VisionThis guide aims to provide a detailed and precise roadmap for transforming Emacs, a powerful text editor, into a fully-featured C++ Integrated Development Environment (ID"}</script><link rel="canonical" href="https://alan-zhang-22.github.io/alantech/2025/07/12/Emacs_C++_IDE_Setup_Eglot/"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/alantech/css/default.css"><!--!--><!-- hexo injector head_end start --><script>
-  (function () {
-      function switchTab() {
-          if (!location.hash) {
-            return;
-          }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
 
-          const id = '#' + CSS.escape(location.hash.substring(1));
-          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
-          if (!$tabMenu) {
-            return;
-          }
+  <link rel="apple-touch-icon" sizes="180x180" href="/alantech/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/alantech/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/alantech/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/alantech/images/logo.svg" color="#222">
 
-          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
-          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
-          Array.from($tabMenuContainer.querySelectorAll('a'))
-              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
-              .forEach($content => $content.classList.add('is-hidden'));
+<link rel="stylesheet" href="/alantech/css/main.css">
 
-          if ($tabMenu) {
-              $tabMenu.parentElement.classList.add('is-active');
-          }
-          const $activeTab = document.querySelector(id);
-          if ($activeTab) {
-              $activeTab.classList.remove('is-hidden');
-          }
-      }
-      switchTab();
-      window.addEventListener('hashchange', switchTab, false);
-  })();
-  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-1-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/alantech/">Alan Tech</a></div><div class="navbar-menu"><div class="navbar-end"></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-12"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2025-07-12T02:33:56.449Z" title="7/12/2025, 2:33:56 AM">2025-07-12</time></span><span class="level-item">Updated&nbsp;<time dateTime="2025-07-12T02:33:56.449Z" title="7/12/2025, 2:33:56 AM">2025-07-12</time></span><span class="level-item"><a class="link-muted" href="/alantech/categories/Dev-Environment/">Dev Environment</a></span></div></div><h1 class="title is-3 is-size-4-mobile">Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition)</h1><div class="content"><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><h2 id="Purpose-and-Vision"><a href="#Purpose-and-Vision" class="headerlink" title="Purpose and Vision"></a>Purpose and Vision</h2><p>This guide aims to provide a detailed and precise roadmap for transforming Emacs, a powerful text editor, into a fully-featured C++ Integrated Development Environment (IDE) on macOS that rivals or surpasses mainstream commercial products. The focus will be on CMake-based projects, using MacPorts as the sole system-level package manager. The ultimate goal is to create a highly integrated, responsive, and fully customizable development environment tailored to the developer’s needs.</p>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"alan-zhang-22.github.io","root":"/alantech/","images":"/alantech/images","scheme":"Muse","darkmode":false,"version":"8.23.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/alantech/js/config.js" defer></script>
+
+    <meta name="description" content="IntroductionPurpose and VisionThis guide aims to provide a detailed and precise roadmap for transforming Emacs, a powerful text editor, into a fully-featured C++ Integrated Development Environment (ID">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition)">
+<meta property="og:url" content="https://alan-zhang-22.github.io/alantech/2025/07/12/Emacs_C++_IDE_Setup_Eglot/index.html">
+<meta property="og:site_name" content="Alan Tech">
+<meta property="og:description" content="IntroductionPurpose and VisionThis guide aims to provide a detailed and precise roadmap for transforming Emacs, a powerful text editor, into a fully-featured C++ Integrated Development Environment (ID">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-07-12T02:40:25.051Z">
+<meta property="article:modified_time" content="2025-07-12T02:40:25.051Z">
+<meta property="article:author" content="Alan Zhang">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://alan-zhang-22.github.io/alantech/2025/07/12/Emacs_C++_IDE_Setup_Eglot/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://alan-zhang-22.github.io/alantech/2025/07/12/Emacs_C++_IDE_Setup_Eglot/","path":"2025/07/12/Emacs_C++_IDE_Setup_Eglot/","title":"Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition) | Alan Tech</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/alantech/js/utils.js" defer></script><script src="/alantech/js/motion.js" defer></script><script src="/alantech/js/sidebar.js" defer></script><script src="/alantech/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/alantech/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/alantech/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Alan Tech</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Purpose-and-Vision"><span class="nav-number">1.1.</span> <span class="nav-text">Purpose and Vision</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Emacs-Philosophy-Why-Choose-Emacs"><span class="nav-number">1.2.</span> <span class="nav-text">The Emacs Philosophy: Why Choose Emacs?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Architecture-Overview"><span class="nav-number">1.3.</span> <span class="nav-text">Architecture Overview</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-1-Preparing-the-macOS-Toolchain-with-MacPorts"><span class="nav-number">2.</span> <span class="nav-text">Part 1: Preparing the macOS Toolchain with MacPorts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-LLVM-Toolchain-Compiler-and-Language-Server"><span class="nav-number">2.1.</span> <span class="nav-text">1.1. LLVM Toolchain: Compiler and Language Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-LLDB-Debugger"><span class="nav-number">2.2.</span> <span class="nav-text">1.2. LLDB Debugger</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-Critical-Step-Activating-the-MacPorts-Toolchain"><span class="nav-number">2.3.</span> <span class="nav-text">1.3. Critical Step: Activating the MacPorts Toolchain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-Verification"><span class="nav-number">2.4.</span> <span class="nav-text">1.4. Verification</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-2-Building-a-Modular-Emacs-Configuration-Architecture"><span class="nav-number">3.</span> <span class="nav-text">Part 2: Building a Modular Emacs Configuration Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-The-Power-of-use-package"><span class="nav-number">3.1.</span> <span class="nav-text">2.1. The Power of use-package</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Configuration-Structure-init-el-and-init-cpp-el"><span class="nav-number">3.2.</span> <span class="nav-text">2.2. Configuration Structure: init.el and init-cpp.el</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-Core-Emacs-Packages-and-Their-IDE-Roles"><span class="nav-number">3.3.</span> <span class="nav-text">2.3. Core Emacs Packages and Their IDE Roles</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-3-Enabling-Intelligent-Code-Editing-with-Eglot"><span class="nav-number">4.</span> <span class="nav-text">Part 3: Enabling Intelligent Code Editing with Eglot</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-LSP-Architecture-Emacs-and-clangd-Collaboration"><span class="nav-number">4.1.</span> <span class="nav-text">3.1. LSP Architecture: Emacs and clangd Collaboration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-The-Critical-Hub-compile-commands-json"><span class="nav-number">4.2.</span> <span class="nav-text">3.2. The Critical Hub: compile_commands.json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-Generating-compile-commands-json-with-CMake"><span class="nav-number">4.3.</span> <span class="nav-text">3.3. Generating compile_commands.json with CMake</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-Configuring-the-eglot-Client"><span class="nav-number">4.4.</span> <span class="nav-text">3.4. Configuring the eglot Client</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-Seamless-Code-Completion-with-company-mode"><span class="nav-number">4.5.</span> <span class="nav-text">3.5. Seamless Code Completion with company-mode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-Effortless-Code-Navigation"><span class="nav-number">4.6.</span> <span class="nav-text">3.6. Effortless Code Navigation</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-4-Crafting-an-Exceptional-User-Experience"><span class="nav-number">5.</span> <span class="nav-text">Part 4: Crafting an Exceptional User Experience</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-Enhanced-Syntax-Highlighting-for-Modern-C"><span class="nav-number">5.1.</span> <span class="nav-text">4.1. Enhanced Syntax Highlighting for Modern C++</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-Real-Time-Diagnostics-with-flymake"><span class="nav-number">5.2.</span> <span class="nav-text">4.2. Real-Time Diagnostics with flymake</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-Customizing-C-Indentation-Style-Handling-Namespaces"><span class="nav-number">5.3.</span> <span class="nav-text">4.3. Customizing C++ Indentation Style: Handling Namespaces</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-Project-File-Browsing-with-treemacs"><span class="nav-number">5.4.</span> <span class="nav-text">4.4. Project File Browsing with treemacs</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-5-Integrating-the-Debugger-with-dap-mode-and-LLDB"><span class="nav-number">6.</span> <span class="nav-text">Part 5: Integrating the Debugger with dap-mode and LLDB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-DAP-Architecture-Parallels-with-LSP"><span class="nav-number">6.1.</span> <span class="nav-text">5.1. DAP Architecture: Parallels with LSP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-Installing-the-lldb-dap-Debug-Adapter"><span class="nav-number">6.2.</span> <span class="nav-text">5.2. Installing the lldb-dap Debug Adapter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-Configuring-dap-mode"><span class="nav-number">6.3.</span> <span class="nav-text">5.3. Configuring dap-mode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-Defining-Reusable-Debug-Launch-Templates"><span class="nav-number">6.4.</span> <span class="nav-text">5.4. Defining Reusable Debug Launch Templates</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-6-Complete-Solution-and-Example-Workflow"><span class="nav-number">7.</span> <span class="nav-text">Part 6: Complete Solution and Example Workflow</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-Final-init-cpp-el-Configuration-File"><span class="nav-number">7.1.</span> <span class="nav-text">6.1. Final init-cpp.el Configuration File</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-Developer-Workflow-From-Project-to-Debugging"><span class="nav-number">7.2.</span> <span class="nav-text">6.2. Developer Workflow: From Project to Debugging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-C-IDE-Core-Keybindings-Reference-Table"><span class="nav-number">7.3.</span> <span class="nav-text">6.3. C++ IDE Core Keybindings Reference Table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-4-Troubleshooting-and-Future-Exploration"><span class="nav-number">7.4.</span> <span class="nav-text">6.4. Troubleshooting and Future Exploration</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Works-Cited"><span class="nav-number">8.</span> <span class="nav-text">Works Cited</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alan Zhang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/alantech/archives/">
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alan-zhang-22.github.io/alantech/2025/07/12/Emacs_C++_IDE_Setup_Eglot/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/alantech/images/avatar.gif">
+      <meta itemprop="name" content="Alan Zhang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alan Tech">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition) | Alan Tech">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Turning Emacs into a Modern C++ IDE on macOS: A Comprehensive Configuration Guide (Eglot Edition)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-07-12 02:40:25" itemprop="dateCreated datePublished" datetime="2025-07-12T02:40:25+00:00">2025-07-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/alantech/categories/Dev-Environment/" itemprop="url" rel="index"><span itemprop="name">Dev Environment</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><h2 id="Purpose-and-Vision"><a href="#Purpose-and-Vision" class="headerlink" title="Purpose and Vision"></a>Purpose and Vision</h2><p>This guide aims to provide a detailed and precise roadmap for transforming Emacs, a powerful text editor, into a fully-featured C++ Integrated Development Environment (IDE) on macOS that rivals or surpasses mainstream commercial products. The focus will be on CMake-based projects, using MacPorts as the sole system-level package manager. The ultimate goal is to create a highly integrated, responsive, and fully customizable development environment tailored to the developer’s needs.</p>
 <h2 id="The-Emacs-Philosophy-Why-Choose-Emacs"><a href="#The-Emacs-Philosophy-Why-Choose-Emacs" class="headerlink" title="The Emacs Philosophy: Why Choose Emacs?"></a>The Emacs Philosophy: Why Choose Emacs?</h2><p>The choice of Emacs as the foundation for a C++ IDE is not driven by nostalgia or tradition but by its unparalleled core strengths. Emacs is designed as “an extensible, self-documenting, real-time display editor.” This means nearly every aspect of it can be customized and extended using Emacs Lisp (Elisp). This extreme flexibility, combined with seamless integration with command-line tools and a vast ecosystem of thousands of high-quality packages built by a global developer community, makes it an ideal platform for crafting the ultimate development environment. Unlike rigid, feature-locked IDEs, Emacs allows developers to sculpt their environment precisely to their preferences.</p>
 <h2 id="Architecture-Overview"><a href="#Architecture-Overview" class="headerlink" title="Architecture Overview"></a>Architecture Overview</h2><p>The C++ IDE we will build is a sophisticated system composed of multiple interoperating components. Understanding these components and their roles is key to successful configuration. The architecture can be divided into three layers:</p>
 <ol>
@@ -501,11 +687,70 @@
 <li>Dap-Mode LLDB Debug Template for Rust : r&#x2F;emacs - Reddit, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://www.reddit.com/r/emacs/comments/1b1d9l6/dapmode_lldb_debug_template_for_rust/">https://www.reddit.com/r/emacs/comments/1b1d9l6/dapmode_lldb_debug_template_for_rust/</a></li>
 <li>dap-lldb: depends on deprecated vscode extension · Issue #799 · emacs-lsp&#x2F;dap-mode, accessed July 5, 2025, <a target="_blank" rel="noopener" href="https://github.com/emacs-lsp/dap-mode/issues/799">https://github.com/emacs-lsp/dap-mode/issues/799</a></li>
 </ol>
-</div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/alantech/2025/07/12/install-basictex-macports-and-convert-markdown-mermaid-to-pdf/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac</span></a></div></nav><!--!--></div><!--!--><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/alantech/">Alan Tech</a><p class="is-size-7"><span>&copy; 2025 Alan Zhang</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
-            article: {
-                highlight: {
-                    clipboard: true,
-                    fold: 'unfolded'
-                }
-            }
-        };</script><script data-pjax src="/alantech/js/column.js"></script><!--!--><script data-pjax src="/alantech/js/main.js" defer></script><!--!--></body></html>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/alantech/2025/07/12/install-basictex-macports-and-convert-markdown-mermaid-to-pdf/" rel="next" title="Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac">
+                  Installing BasicTeX via MacPorts and Converting Markdown with Mermaid Diagrams to PDF on Mac <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Alan Zhang</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
