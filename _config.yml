@@ -103,20 +103,4 @@ theme: next
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
-
-# Theme-specific settings for NexT
-next:
-  comments:
-    enable: true
-    active: giscus
-    giscus:
-      repo: alan-zhang-22/alantech
-      repo_id: R_kgDOPHi3mQ
-      category: Blog Comments
-      category_id: DIC_kwDOPHi3mc4Cs10y
-      mapping: pathname
-      reactions_enabled: 1
-      emit_metadata: 0
-      input_position: bottom
-      theme: preferred_color_scheme
-      lang: en
+\ntheme_config:\n  next: _config.next.yml\n

@@ -1,11 +1,7 @@
 # NexT Theme Comments Settings
-
 comments:
-  # Enable comments
   enable: true
-  # The active comment system
   active: giscus
-  # Giscus settings
   giscus:
     repo: alan-zhang-22/alantech
     repo_id: R_kgDOPHi3mQ
