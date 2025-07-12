@@ -103,4 +103,6 @@ theme: next
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
-\ntheme_config:\n  next: _config.next.yml\n
+
+# Point to the theme's configuration file
+theme_config: _config.next.yml
